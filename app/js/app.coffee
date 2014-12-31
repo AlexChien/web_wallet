@@ -73,7 +73,7 @@ app.run ($rootScope, $location, $idle, $state, $interval, $window, $templateCach
         else
             $rootScope.context_help.show = false
             $rootScope.context_help.file = ""
-            
+
     $idle.watch()
 
 app.config ($idleProvider, $stateProvider, $urlRouterProvider, $translateProvider, $tooltipProvider) ->
@@ -85,7 +85,7 @@ app.config ($idleProvider, $stateProvider, $urlRouterProvider, $translateProvide
         suffix: '.json'
 
     lang = switch(window.navigator.language)
-      when "zh-CN" then "zh-CN"
+      when "zh-CN", 'zh-cn' then "zh-CN"
       when "de", "de-DE", "de-de" then "de"
       when "ru", "ru-RU", "ru-ru" then "ru"
       when "it", "it-IT", "it-it" then "it"
@@ -246,28 +246,28 @@ app.config ($idleProvider, $stateProvider, $urlRouterProvider, $translateProvide
         url: "/mail/:box"
         templateUrl: "mail.html"
         controller: "MailController"
-    
+
     sp.state "mail.compose",
         url: "/compose"
         onEnter: ($modal, $state) ->
             modal = $modal.open
                 templateUrl: "dialog-mail-compose.html"
                 controller: "ComposeMailController"
-                
+
             modal.result.then(
                 (result) ->
                     $state.go 'mail'
                 () ->
                     $state.go 'mail'
             )
-    
+
     sp.state "mail.show",
         url: "/show/:id"
         onEnter: ($modal, $state) ->
             modal = $modal.open
                 templateUrl: "dialog-mail-show.html"
                 controller: "ShowMailController"
-                
+
             modal.result.then(
                 (result) ->
                     $state.go 'mail'
